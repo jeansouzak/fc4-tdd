@@ -11,6 +11,9 @@ export class UserController {
 
   async createUser(req: Request, res: Response): Promise<Response> {
     try {
+      if (!req.body.name) {
+        return res.status(400).json({ message: "O nome do usuário é obrigatório." });
+      }
       const dto: CreateUserDTO = {
         name: req.body.name,
       };
@@ -25,7 +28,7 @@ export class UserController {
         },
       });
     } catch (error: any) {
-      return res.status(400).json({ message: error.message || "An unexpected error occurred" });
+      return res.status(500).json({ message:  "An unexpected error occurred" });
     }
   }
 }

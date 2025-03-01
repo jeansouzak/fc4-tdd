@@ -10,11 +10,7 @@ export class UserService {
     return this.userRepository.findById(id);
   }
 
-  async createUser(dto: CreateUserDTO): Promise<User> {
-    if (!dto.name) {
-      throw new Error("O nome do usuário é obrigatório.");
-    }
-    
+  async createUser(dto: CreateUserDTO): Promise<User> {    
     const user = new User(uuidv4(), dto.name);
     await this.userRepository.save(user);
     return user;
