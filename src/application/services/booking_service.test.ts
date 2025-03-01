@@ -185,6 +185,7 @@ describe("BookingService", () => {
     spyFindById.mockRestore();
   });
 
+  //Teste já criado
   it("deve lançar um erro ao tentar cancelar uma reserva inexistente", async () => {
     const bookingId = "invalid-id";
 
