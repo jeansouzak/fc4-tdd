@@ -20,11 +20,36 @@ export class BookingMapper {
 
     booking["totalPrice"] = Number(entity.totalPrice);
     booking["status"] = entity.status;
-
     return booking;
   }
 
   static toPersistence(domain: Booking): BookingEntity {
+    if (!domain) {
+      throw new Error("Booking é obrigatório.");
+    }
+    if (!domain.getId()) {
+      throw new Error("ID é obrigatório.");
+    }
+    if (!domain.getProperty()) {
+      throw new Error("Propriedade é obrigatória.");
+    }
+    if (!domain.getGuest()) {
+      throw new Error("Hóspede é obrigatório.");
+    }
+    
+    if (!domain.getDateRange()) {
+      throw new Error("Data de início e término é obrigatória.");
+    }
+    if (domain.getGuestCount() === undefined || domain.getGuestCount() === null) {
+      throw new Error("O número de hóspedes é obrigatório.");
+    }
+    if (domain.getTotalPrice() === undefined || domain.getTotalPrice() === null) {
+      throw new Error("O preço total é obrigatório.");
+    }
+    if (!domain.getStatus()) {
+      throw new Error("O status é obrigatório.");
+    }
+
     const entity = new BookingEntity();
     entity.id = domain.getId();
     entity.property = PropertyMapper.toPersistence(domain.getProperty());
